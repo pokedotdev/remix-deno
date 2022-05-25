@@ -1,0 +1,33 @@
+{
+  "name": "remix-template-deno",
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "css": "tailwindcss -i ./styles/app.css -o ./app/styles/app.css",
+    "build": "npm run build:css && remix build",
+    "build:css": "npm run css -- --minify",
+    "deploy": "deployctl deploy --prod --include=build,public --project=<your deno deploy project> ./build/index.js",
+    "dev": "remix build && run-p dev:*",
+    "dev:deno": "cross-env NODE_ENV=development deno run --unstable --watch --allow-net --allow-read --allow-env ./build/index.js",
+    "dev:remix": "remix watch",
+    "dev:css": "npm run css -- --watch",
+    "format": "deno fmt --ignore=node_modules",
+    "lint": "deno lint --ignore=node_modules",
+    "start": "cross-env NODE_ENV=production deno run --unstable --allow-net --allow-read --allow-env ./build/index.js"
+  },
+  "dependencies": {
+    "@remix-run/deno": "^1.5.1",
+    "@remix-run/react": "^1.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.5.1",
+    "cross-env": "^7.0.3",
+    "npm-run-all": "^4.1.5",
+    "tailwindcss": "^3.0.24"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
